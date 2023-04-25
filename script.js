@@ -1,7 +1,40 @@
-const logo = document.querySelector("title");
+const itemForm = document.getElementById("item-form");
+const itemInput = document.getElementById("item-input");
+const itemList = document.getElementById("item-list");
 
-const onclick = () => console.log("click event");
-const ondoubleclick = () => console.log("doubleclick event");
+function addItem(e) {
+  e.preventDefault();
 
-logo.addEventListener("click", onclick);
-logo.addEventListener("dblclick", ondoubleclick);
+  const newItem = itemInput.value;
+  // validat input
+  if (newItem === "") {
+    alert("pls add an item");
+    return;
+  }
+  //   create li with words in it
+  const li = document.createElement("li");
+  li.appendChild(document.createTextNode(newItem));
+
+  //   create button
+  const button = createButton("remove-item btn-link text-red");
+  li.appendChild(button);
+  itemList.appendChild(li);
+  itemInput.value = "";
+}
+
+function createButton(classes) {
+  const button = document.createElement("button");
+  button.className = classes;
+  const icon = createIcon("fa-solid fa-xmark");
+  button.appendChild(icon);
+  return button;
+}
+
+function createIcon(classes) {
+  const icon = document.createElement("i");
+  icon.className = classes;
+  return icon;
+}
+
+// Event Listeners
+itemForm.addEventListener("submit", addItem);
